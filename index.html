@@ -8,18 +8,77 @@
 </head>
 <body>
     <header>
-        <h1>Assignment Explanation</h1>
+        <h1> Fidelity. Resolution. Scale.</h1>
     </header>
     <main>
         <section class="explanation">
-            <h2>Introduction</h2>
-            <p>Welcome to my assignment explanation. Here, I will describe the key concepts, methods, and results of my work.</p>
-            <h2>Details</h2>
-            <p>[Add your assignment details here]</p>
+            <div class="venn-diagram-container">
+                <img src="venn-diagram.png" alt="Venn Diagram" class="venn-diagram">
+            </div>
+            <h2>How to Read the Diagram</h2>
+            <p>Fidelity (How real?) – Do we model the true mechanics/sensors/policies?<br>
+            <em>Analogy:</em> real aerodynamics vs. arcade flight.</p>
+            <p>Resolution (How detailed?) – How many distinct states or categories do we track?<br>
+            <em>Analogy:</em> photo pixels or the number of customer types.</p>
+            <p>Scale (How big/long?) – Scope in space/time and population.<br>
+            <em>Analogy:</em> map zoom (gate → terminal → nationwide) and time window (minutes → months).</p>
+            <p>The Venn shows which dial(s) we turned up for different kinds of airport models.</p>
+
+            <h2>F only — High Fidelity, low Resolution, small Scale</h2>
+            <p><strong>Example:</strong> E-gate device thermal model (door opens → temperature recovery curve).</p>
+            <p><strong>Why it lives here:</strong> Models real physics of the fridge/equipment (heat ingress, recovery time) very accurately—high fidelity—but doesn’t track many passenger types or a big system—low resolution and small scale.</p>
+            <p><strong>What it answers:</strong> “How long can the door be open before temperature exceeds limits?” “What’s the recovery time after an open?”</p>
+            <p><strong>What it can’t answer:</strong> Queue length, staffing, or airport-wide throughput—there’s no crowd, just the device.</p>
+
+            <h2>R only — High Resolution, low Fidelity, small Scale</h2>
+            <p><strong>Example:</strong> Micro-queue sim of one counter: dozens of passenger states but service times are generic.</p>
+            <p><strong>Why it lives here:</strong> Lots of categories (first-timer, elderly, mask/glasses, etc.)—high resolution—but mechanics at each step are simplified (e.g., “service time = 40 seconds” with no sensor physics), so fidelity is modest and the scope is just one counter—small scale.</p>
+            <p><strong>What it answers:</strong> “If I prioritize elderly or first-timers, what happens to fairness/wait?”</p>
+            <p><strong>What it can’t answer:</strong> Device or sensor limits; airport-wide knock-on effects.</p>
+
+            <h2>S only — High Scale, low Fidelity, low Resolution</h2>
+            <p><strong>Example:</strong> Nationwide arrival forecast (passengers/day by airport; simple regression).</p>
+            <p><strong>Why it lives here:</strong> Covers the whole country and long time horizons—high scale—but uses simple equations and few categories—low fidelity and low resolution.</p>
+            <p><strong>What it answers:</strong> “How many arrivals per airport per day next month?” for high-level planning.</p>
+            <p><strong>What it can’t answer:</strong> Minute-by-minute queues, bottlenecks, or sensor behavior.</p>
+
+            <h2>F ∩ R — High Fidelity + High Resolution (limited Scale)</h2>
+            <p><strong>Example:</strong> Model of NAIA e-Gate arrivals (our working model).</p>
+            <p><strong>Why it lives here:</strong> Models true steps (scan → biometrics → watchlist) with realistic failure/retry logic—high fidelity—and keeps meaningful cohorts (first-time users, repeat users, mask/glasses, referral reasons)—high resolution. Scoped to one terminal / a few flight banks—scale is limited.</p>
+            <p><strong>What it answers:</strong> “During tonight’s wide-body bank, how many e-Gates and marshals do we need to keep waits under 8 minutes?”</p>
+            <p><strong>What it can’t answer:</strong> Multi-airport policies or month-long trends by itself.</p>
+
+            <h2>F ∩ S — High Fidelity + High Scale (modest Resolution)</h2>
+            <p><strong>Example:</strong> NAIA airport grid-power model aggregated by terminals.</p>
+            <p><strong>Why it lives here:</strong> Keeps real physics (power demand/thermal loads)—high fidelity—and spans multiple terminals and long periods—high scale. Aggregates users/loads (few categories)—modest resolution.</p>
+            <p><strong>What it answers:</strong> “If Terminal 3 adds six e-Gate banks, what’s the peak load and backup power requirement this summer?”</p>
+            <p><strong>What it can’t answer:</strong> Per-passenger queue behavior or detailed referral reasons.</p>
+
+            <h2>R ∩ S — High Resolution + High Scale (modest Fidelity)</h2>
+            <p><strong>Example:</strong> Airport-wide simulation of all transfer passengers across all terminals.</p>
+            <p><strong>Why it lives here:</strong> Tracks many passengers and paths (transfer security, immigration, people-movers) across all terminals and an entire day/week—high resolution and high scale. Checkpoint mechanics are black-boxed as service-time distributions—modest fidelity.</p>
+            <p><strong>What it answers:</strong> “What’s the missed-connection rate by bank?” “How many transfer-security lanes to open from 17:30–19:00?”</p>
+            <p><strong>What it can’t answer:</strong> Scanner physics or biometric thresholds.</p>
+
+            <h2>F ∩ R ∩ S — All three high (the center)</h2>
+            <p><strong>Example:</strong> Full implementation of NAIA e-Gate arrivals for everyone & anytime.</p>
+            <p><strong>Why it lives here:</strong> True-to-process (F), fine-grained per passenger (R), and airport-/multi-day scale (S).</p>
+            <p><strong>What it promises:</strong> End-to-end “everything at once” answers.</p>
+            <p><strong>Trade-off:</strong> Data-hungry, compute-heavy, hard to calibrate—rare in practice unless you have sustained data and engineering support.</p>
+
+            <h2>Why these examples, and why these placements?</h2>
+            <ul>
+                <li>They’re common airport decisions. Each example maps to real choices ops teams face: device settings (F), lane policy (R), staffing and gating across terminals (S), and combinations thereof.</li>
+                <li>They isolate the teaching point. Each region’s example highlights the dial(s) we turned up while deliberately keeping the third dial lower.</li>
+                <li>They show trade-offs.</li>
+            </ul>
+            <p><strong>Push Fidelity high</strong> → you trust mechanics but may lose breadth or detail.</p>
+            <p><strong>Push Resolution high</strong> → you see fairness and cohort effects but must simplify physics or scope.</p>
+            <p><strong>Push Scale high</strong> → you plan resources broadly but won’t capture second-by-second realities.</p>
         </section>
     </main>
     <footer>
-        <p>&copy; 2025 Your Name. All rights reserved.</p>
+        <p>&copy; Jhezra Tolentino. TN-36.</p>
     </footer>
 </body>
 </html>

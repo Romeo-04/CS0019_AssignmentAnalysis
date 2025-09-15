@@ -8,9 +8,12 @@ body {
 header {
 	background: #2d6cdf;
 	color: #fff;
-	padding: 2rem 0 1rem 0;
 	text-align: center;
 	box-shadow: 0 2px 8px rgba(44, 108, 223, 0.1);
+    height : 70px;
+    padding-top : 20px;
+    padding-bottom : 20px;
+    
 }
 
 main {
@@ -20,6 +23,17 @@ main {
 	border-radius: 8px;
 	box-shadow: 0 2px 12px rgba(44, 108, 223, 0.08);
 	padding: 2rem;
+}
+
+.venn-diagram-container {
+    text-align: center;
+    align-items: center;
+}
+
+.venn-diagram {
+    width : 700px;
+    height: 500px;
+    object-fit : contain;
 }
 
 .explanation h2 {
