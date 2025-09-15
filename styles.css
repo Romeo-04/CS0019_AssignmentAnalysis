@@ -6,10 +6,10 @@ body {
 }
 
 header {
-	background: #2d6cdf;
+	background: #204b9a;
 	color: #fff;
 	text-align: center;
-	box-shadow: 0 2px 8px rgba(44, 108, 223, 0.1);
+	box-shadow: 0 5px 8px rgba(44, 108, 223, 0.1);
     height : 70px;
     padding-top : 20px;
     padding-bottom : 20px;
@@ -34,10 +34,12 @@ main {
     width : 700px;
     height: 500px;
     object-fit : contain;
+    box-shadow : 0 8px 20px rgba(44, 108, 223, 0.08);
+    border-radius : 10px;
 }
 
 .explanation h2 {
-	color: #2d6cdf;
+	color: #204b9a;
 	margin-top: 1.5rem;
 }
 
